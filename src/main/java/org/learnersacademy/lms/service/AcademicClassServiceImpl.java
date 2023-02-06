@@ -9,9 +9,9 @@ import org.learnersacademy.lms.entities.AcademicClass;
 public class AcademicClassServiceImpl implements AcademicClassService {
 
 	@Override
-	public void insert(AcademicClass studyClass) {
+	public int insert(AcademicClass studyClass) {
 		AcademicClassDao classDao=new AcademicClassDaoImpl();
-		classDao.insert(studyClass);
+		return classDao.insert(studyClass);
 		
 	}
 

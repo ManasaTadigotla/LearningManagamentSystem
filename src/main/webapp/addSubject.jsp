@@ -13,18 +13,15 @@
 <form action="./addSub" method="post">
 <table>
 <tr>
-<td>Name:</td><td align="left"><input type="text" name="name"></td>
-<tr><td align="center"> <input type="submit" value="submit"></td></tr>
-<tr>
-<td>
+<td align="left">Subject Name:</td><td align="left"><input type="text" name="name"></td>
+<td align="center"> <input type="submit" value="submit"></td>
+</tr>
+</table>
 <%
 String message=(String)request.getAttribute("msg");
 if(message!=null)
 out.println(message);
 %>
-</td>
-</tr>
-</table>
 </form>
 </body>
 </html>

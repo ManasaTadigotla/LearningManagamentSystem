@@ -7,7 +7,7 @@ import org.learnersacademy.lms.entities.Student;
 
 public interface StudentDao {
 	
-	void insert(Student student);
+	int insert(Student student);
 	List<Student> getAll();
 	void update(Student student);
 	void delete(Student student);

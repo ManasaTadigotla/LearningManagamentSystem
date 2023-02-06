@@ -22,7 +22,7 @@ public class Teacher {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int tId;
-	
+	@Column(nullable = false,unique = true)
 	private String firstName;
 	private String lastName;
 	private String designation;

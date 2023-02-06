@@ -26,7 +26,7 @@ public class Subject {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int sId;
-	@Column(nullable = false)	
+	@Column(nullable = false,unique = true)	
 	private String name;
 	
 	@ManyToMany(fetch = FetchType.EAGER)

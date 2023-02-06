@@ -12,20 +12,17 @@
 <form action="./addClass" method="post">
 <table>
 <tr>
-<td align="left">name</td>
-<td><input type="text" name="classname"></td>
+<td align="left">Class Name</td>
+<td align="left"><input type="text" name="classname"></td>
 <td align="center"><input type="submit" value="Add"></td>
 </tr>
-<tr>
-<td>
+</table>
 <%
 String message=(String)request.getAttribute("msg");
 if(message!=null)
 out.println(message);
 %>
-</td>
-</tr>
-</table>
+
 </form>
 </body>
 </html>

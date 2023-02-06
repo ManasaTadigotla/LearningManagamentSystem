@@ -6,7 +6,7 @@ import org.learnersacademy.lms.entities.Subject;
 
 public interface SubjectService {
 
-	void insert(Subject subject);
+	public int insert(Subject subject);
 	List<Subject> getAll();
 	Subject getSubject(int sId);
 	void delete(Subject subject);

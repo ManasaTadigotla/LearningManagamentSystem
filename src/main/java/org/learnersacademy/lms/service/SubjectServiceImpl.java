@@ -10,9 +10,9 @@ import org.learnersacademy.lms.entities.Subject;
 public class SubjectServiceImpl implements SubjectService {
 
 	@Override
-	public void insert(Subject subject) {
+	public int insert(Subject subject) {
 		SubjectDaoImpl subjectdao=new SubjectDaoImpl();
-		subjectdao.insert(subject);
+		return subjectdao.insert(subject);
 		
 	}
 

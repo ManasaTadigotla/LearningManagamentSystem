@@ -6,7 +6,7 @@ import org.learnersacademy.lms.entities.AcademicClass;
 
 public interface AcademicClassService {
 
-	void insert(AcademicClass studyClass);
+	int insert(AcademicClass studyClass);
 	void update(AcademicClass studyClass);
 	List<AcademicClass> getAll();
 	AcademicClass getAcademicClass(int id);

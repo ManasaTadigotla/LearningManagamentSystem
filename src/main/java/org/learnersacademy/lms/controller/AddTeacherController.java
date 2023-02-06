@@ -17,23 +17,43 @@ import org.learnersacademy.lms.service.TeacherserviceImpl;
  */
 public class AddTeacherController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-   
-    public AddTeacherController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		TeacherService service=new TeacherserviceImpl();
-		Teacher teacher=new Teacher();
-		teacher.setFirstName((String) request.getParameter("firstname"));
-		teacher.setLastName((String) request.getParameter("lastname"));
-		teacher.setDesignation((String) request.getParameter("designation"));
-		teacher.setContactNo(Long.parseLong(request.getParameter("contact")));
-		service.insert(teacher);		
-		request.setAttribute("msg", "inserted successfully");
-		RequestDispatcher rd=request.getRequestDispatcher("addTeacher.jsp");
-		rd.include(request, response);
-		
+
+	public AddTeacherController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		TeacherService service = new TeacherserviceImpl();
+		Teacher teacher = new Teacher();
+		String fName = request.getParameter("firstname");
+		String lName = request.getParameter("lastname");
+		String desig = request.getParameter("designation");
+		String contact = request.getParameter("contact");
+		if (fName.isEmpty() || lName.isEmpty() || desig.isEmpty() || contact.isEmpty()) {
+			response.getWriter().println("Plz provide all the details");
+			// request.setAttribute("msg", "Plz provide all the details");
+			// RequestDispatcher rd=request.getRequestDispatcher("addTeacher.jsp");
+			// rd.include(request, response);
+		} else {
+			teacher.setFirstName(fName);
+			teacher.setLastName(lName);
+			teacher.setDesignation(desig);
+			if (contact != null) {
+				teacher.setContactNo(Long.parseLong(contact));
+			}
+			try {
+				service.insert(teacher);
+				request.setAttribute("msg", "inserted successfully");
+				RequestDispatcher rd = request.getRequestDispatcher("addTeacher.jsp");
+				rd.include(request, response);
+			} catch (Exception e) {
+				request.setAttribute("msg", "Oops!Something went wrong.Plz check if Firstname may already exists");
+				RequestDispatcher rd = request.getRequestDispatcher("addTeacher.jsp");
+				rd.include(request, response);
+			}
+		}
 	}
 
 }

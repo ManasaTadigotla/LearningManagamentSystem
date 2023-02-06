@@ -7,7 +7,9 @@ import javax.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.exception.ConstraintViolationException;
 import org.learnersacademy.config.HibConfig;
+import org.learnersacademy.lms.dao.SubjectDaoImpl.Status;
 import org.learnersacademy.lms.entities.AcademicClass;
 import org.learnersacademy.lms.entities.Subject;
 
@@ -19,7 +21,7 @@ public class AcademicClassDaoImpl implements AcademicClassDao {
 		insert,
 		update
 	}
-		
+	Status subjectUpdateStatus=null;
 	public void performTransaction(AcademicClass studyClass,Act task)
 	{
 		SessionFactory sessionFactory=HibConfig.getSessionFactory();
@@ -42,23 +44,39 @@ public class AcademicClassDaoImpl implements AcademicClassDao {
 				//sessionFactory.getCurrentSession().update(studyClass);
 			}
 			tx.commit();
-			session.clear();
-			session.close();
+			subjectUpdateStatus=Status.SUCCESS;
+			//session.clear();
+			//session.close();
+		}
+		catch (ConstraintViolationException ex) {
+			tx.rollback();			
+			subjectUpdateStatus=Status.CONSTAINTDUPLICATE;
 		}
 		catch (Exception e) {
 			tx.rollback();
+			subjectUpdateStatus=Status.UNHANDLEDEXCP;			
+			e.printStackTrace();
+		}
+		finally
+		{
 			if(session.isOpen())
 			{
 				session.clear();
 				session.close();
 			}
-			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public void insert(AcademicClass studyClass) {
+	public int insert(AcademicClass studyClass) {
 		performTransaction(studyClass, Act.insert);
+		if(subjectUpdateStatus==Status.CONSTAINTDUPLICATE)
+			return -1;
+		else if(subjectUpdateStatus==Status.SUCCESS)
+			return 1;
+			else
+			return -2;
+		
 		
 	}
 

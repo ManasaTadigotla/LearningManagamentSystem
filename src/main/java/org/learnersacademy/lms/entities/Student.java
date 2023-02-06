@@ -2,6 +2,7 @@ package org.learnersacademy.lms.entities;
 
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int studentId;
+	@Column(unique = true,nullable = false)
 	private String firstName;
 	private String lastName;
 	private long contactNo;

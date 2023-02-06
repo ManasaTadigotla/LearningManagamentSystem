@@ -6,7 +6,7 @@ import org.learnersacademy.lms.entities.Student;
 
 public interface StudentService {
 	
-	void insert(Student student);
+	int insert(Student student);
 	List<Student> getAll();
 	void update(Student student);
 	void deltete(Student student);

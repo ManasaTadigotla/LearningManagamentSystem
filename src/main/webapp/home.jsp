@@ -24,7 +24,7 @@ body {
 			<td><a href="addClass.jsp">Add Class</a></td>
 			<td><a href="addTeacher.jsp">Add Teacher</a></td>
 			<td><a href="addStudent.jsp">Add Student</a></td>
-			<td><a href="./mapSubjectAndClass">Add Subjects to Class</a></td>
+			<td><a href="./mapSubjects">Add Subjects to Class</a></td>
 			<td><a href="./mapTeacherSubjects">Add Teacher to Subject</a></td>
 			<td><a href="./map">Add Student to Class</a></td>
 			<td><a href="./classReport">ClassReport</a></td>

@@ -17,7 +17,7 @@ public class AcademicClass {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int cId;
-	@Column(nullable = false)
+	@Column(nullable = false,unique = true)
 	private String name;	
 	
 	@ManyToMany(mappedBy = "classes",fetch = FetchType.EAGER)

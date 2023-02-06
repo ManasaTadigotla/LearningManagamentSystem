@@ -42,14 +42,23 @@ public class MapSubjectsController extends HttpServlet {
 		SubjectServiceImpl subService=new SubjectServiceImpl();
 		List<AcademicClass> classes=service.getAll();
 		List<Subject> subjects=subService.getAll();
-		for(Subject sub:subjects)
+		if((!classes.isEmpty()) && (!subjects.isEmpty()))
 		{
-			out.print(sub.getName());
-		}
 		request.setAttribute("classes", classes);
 		request.setAttribute("subjects", subjects);
 		RequestDispatcher rd=request.getRequestDispatcher("mapSubjectToClass.jsp");
 		rd.forward(request, response);
+		}
+		else
+		{
+			if(classes.isEmpty())
+			{
+				out.println("There is no class available");
+			}
+			else {
+				out.println("There is no subject available");
+			}
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -69,7 +78,7 @@ public class MapSubjectsController extends HttpServlet {
 	else if(success==-2)
 		response.getWriter().println("Unexpected problem occured in assigning the subject.Check if this subject is already assigned the "+cls.getName());
 	else if(success==1)
-		response.getWriter().println("This subjects is assigned successfully");
+		response.getWriter().println("This subject is assigned successfully");
 		
 	}
 

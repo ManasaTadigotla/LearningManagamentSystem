@@ -68,10 +68,12 @@ public class SubjectDaoImpl implements SubjectDao{
 			//subjectUpdateStatus = Status.CONSTAINTDUPLICATE;
 			tx.rollback();			
 			subjectUpdateStatus=Status.CONSTAINTDUPLICATE;	
+			//ex.printStackTrace();
 			//tx.rollback();
 		}			
 		catch( NonUniqueObjectException e) {
-			tx.rollback();			
+			tx.rollback();	
+			subjectUpdateStatus=Status.CONSTAINTDUPLICATE;
 			e.printStackTrace();
 			
 		}
@@ -93,9 +95,15 @@ public class SubjectDaoImpl implements SubjectDao{
 	}
 
 	@Override
-	public void insert(Subject subject) {
+	public int insert(Subject subject) {
 		performTransaction(subject, Act.insert);
-		
+		if(subjectUpdateStatus==Status.CONSTAINTDUPLICATE)
+			return -1;
+		else if(subjectUpdateStatus==Status.SUCCESS)
+			return 1;
+			else
+			return -2;
+				
 	}
 
 	@Override

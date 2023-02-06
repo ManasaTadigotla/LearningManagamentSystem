@@ -29,7 +29,7 @@ List<Subject> subjects=(List<Subject>) request.getAttribute("subjects");
 for(Teacher t:teachers)
 {
 %>
-<option value=<%=t.gettId() %>><%=t.getFirstName() %></option>
+<option value=<%=t.gettId() %>><%=t.getFirstName()+t.getLastName() %></option>
 <%
 }
 %>

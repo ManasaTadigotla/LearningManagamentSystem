@@ -81,16 +81,6 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>MapSubjectAndClass</display-name>
-    <servlet-name>MapSubjectAndClass</servlet-name>
-    <servlet-class>org.learnersacademy.lms.controller.MapSubjectAndClass</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>MapSubjectAndClass</servlet-name>
-    <url-pattern>/mapSubjectAndClass</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <display-name>MapController</display-name>
     <servlet-name>MapController</servlet-name>
     <servlet-class>org.learnersacademy.lms.controller.MapController</servlet-class>

@@ -6,7 +6,7 @@ import org.learnersacademy.lms.entities.AcademicClass;
 
 public interface AcademicClassDao {
 
-	void insert(AcademicClass studyClass);
+	int insert(AcademicClass studyClass);
 	List<AcademicClass> getAll();
 	void delete(AcademicClass studyClass);
 	void update(AcademicClass studyClass);

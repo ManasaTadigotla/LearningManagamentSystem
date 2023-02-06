@@ -7,6 +7,7 @@ import javax.persistence.TypedQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.exception.ConstraintViolationException;
 import org.learnersacademy.config.HibConfig;
 import org.learnersacademy.lms.dao.AcademicClassDaoImpl.Act;
 import org.learnersacademy.lms.entities.Subject;
@@ -14,7 +15,7 @@ import org.learnersacademy.lms.entities.Teacher;
 
 public class TeacherDaoImpl implements TeacherDao {
 
-	public void performTransaction(Teacher teacher,Act task)
+	public void performTransaction(Teacher teacher,Act task) 
 	{
 		SessionFactory sessionFactory=HibConfig.getSessionFactory();
 		Session session=sessionFactory.openSession();
@@ -39,6 +40,10 @@ public class TeacherDaoImpl implements TeacherDao {
 			tx.commit();
 			session.close();
 		}
+		catch (ConstraintViolationException ex) {
+			ex.printStackTrace();
+			// TODO: handle exception
+		}
 		catch (Exception e) {
 			tx.rollback();
 			if(session.isOpen())
@@ -47,7 +52,7 @@ public class TeacherDaoImpl implements TeacherDao {
 				session.close();
 			}
 			//tx.rollback();
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 

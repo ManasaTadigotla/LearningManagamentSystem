@@ -8,14 +8,17 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.exception.ConstraintViolationException;
 import org.learnersacademy.config.HibConfig;
 import org.learnersacademy.lms.dao.AcademicClassDaoImpl.Act;
+import org.learnersacademy.lms.dao.SubjectDaoImpl.Status;
 import org.learnersacademy.lms.entities.AcademicClass;
 import org.learnersacademy.lms.entities.Student;
 
 public class StudentDaoImpl implements StudentDao{
 
-	public void performTransaction(Student student,Act task)
+	Status studentUpdateStatus=null;
+	public void performTransaction(Student student,Act task) throws ConstraintViolationException
 	{
 		SessionFactory sessionFactory=HibConfig.getSessionFactory();
 		Session session=sessionFactory.openSession();
@@ -40,21 +43,30 @@ public class StudentDaoImpl implements StudentDao{
 			session.close();
 			//tx.commit();
 		}
-		catch (Exception e) {
+		catch (ConstraintViolationException e) {
 			tx.rollback();
 			if(session.isOpen())
 			{
 				session.clear();
 				session.close();
 			}
+			studentUpdateStatus=Status.CONSTAINTDUPLICATE;	
 			
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
 	@Override
-	public void insert(Student student) {
-	performTransaction(student, Act.insert);
+	public int insert(Student student) throws ConstraintViolationException {
+	 performTransaction(student, Act.insert);
+	 if(studentUpdateStatus==Status.CONSTAINTDUPLICATE)
+	 {
+		 return -1;
+	 }
+	 else
+	 {
+		 return 0;
+	 }
 		
 	}
 
