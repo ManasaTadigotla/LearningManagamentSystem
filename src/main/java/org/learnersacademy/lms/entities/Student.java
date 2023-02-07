@@ -24,7 +24,7 @@ public class Student {
 	private int age;
 	private String studyClass;
 	
-	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="cId")
 	private AcademicClass academicClass;
 
@@ -110,7 +110,8 @@ public class Student {
 ////helper classes  //
 	public void addAcademicClassToStudent(AcademicClass aClass)
 	{
-		academicClass.addStudent(this);
+		
+		//academicClass.addStudent(this);
 		aClass.getStudents().add(this);
 	
 	}

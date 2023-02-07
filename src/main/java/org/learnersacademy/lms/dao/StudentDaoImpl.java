@@ -97,10 +97,17 @@ public class StudentDaoImpl implements StudentDao{
 	public Student findByStudentId(int studentId) {
 		SessionFactory sessionFactory=HibConfig.getSessionFactory();
 		Session session=sessionFactory.openSession();
+		Student stu = null;
 		TypedQuery<Student> query=session.createQuery("select s from org.learnersacademy.lms.entities.Student s where s.studentId="+studentId,Student.class);
 		//query.setParameter(1, cId);
-		Student stu=query.getSingleResult();
-		//session.close();
+		try
+		{
+         stu=query.getSingleResult();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			
+		}		
 		return stu;
 		
 	}

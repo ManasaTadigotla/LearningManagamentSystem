@@ -21,6 +21,9 @@ List<Student> studs=(List<Student>)request.getAttribute("students");
 <td align="left">
 Classes
 </td>
+<td align="left">
+Students
+</td>
 </tr>
 <tr>
 <td align="left">

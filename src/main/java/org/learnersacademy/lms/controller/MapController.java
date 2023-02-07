@@ -44,10 +44,8 @@ public class MapController extends HttpServlet {
 		StudentService stuService=new StudentServiceImpl();
 		List<AcademicClass> classes=service.getAll();
 		List<Student> students=stuService.getAll();
-		if(classes!=null)
+		if((!classes.isEmpty()) && (!students.isEmpty()))
 		{
-		if(students!=null)
-		{		
 		req.setAttribute("classes", classes);
 		req.setAttribute("students", students);
 		RequestDispatcher rd=req.getRequestDispatcher("mapStudentToClass.jsp");
@@ -55,13 +53,16 @@ public class MapController extends HttpServlet {
 		}
 		else
 		{
+		if(students.isEmpty())
+		{
 			out.print("There is no student available to assign");
-		}
+		
 		}
 		else
 		{
 			out.print("There is no class added");
 		}
+	}
 	}
 
 	/**
@@ -77,11 +78,14 @@ public class MapController extends HttpServlet {
 		//response.getWriter().print(studentId);
 			
 		AcademicClass cls=service.findByClassId(cId);
+		Student stu=serviceStu.findByStudentId(studentId);
+		/*
 		SessionFactory sessionFactory=HibConfig.getSessionFactory();
 		Session session=sessionFactory.openSession();
 		TypedQuery<Student> query=session.createQuery("select s from org.learnersacademy.lms.entities.Student s where s.studentId="+studentId,Student.class);
 		//query.setParameter(1, cId);
 		Student stu=query.getSingleResult();
+		*/
 		//session.close();
 		
 		//Student stu=serviceStu.findByStudentId(studentId);
@@ -90,12 +94,13 @@ public class MapController extends HttpServlet {
 			if(stu!=null)
 			{
 				cls.addStudent(stu);
-				
-				//cls.getSubjects().add(sub);
-				//sub.getClasses().add(cls);
-				stu.addAcademicClassToStudent(cls);
-				service.update(cls);
+				stu.addAcademicClassToStudent(cls);				
+				//service.update(cls);
 				serviceStu.update(stu);
+				//request.setAttribute("msg", "Assigned successfully");
+				//RequestDispatcher rd=request.getRequestDispatcher("mapStudentToClass.jsp");
+				//rd.include(request, response);
+				response.getWriter().println("Assigned successfully");
 			}
 			else
 			{

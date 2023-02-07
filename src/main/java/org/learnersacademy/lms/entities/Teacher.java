@@ -79,7 +79,7 @@ public class Teacher {
 	public void addSubject(Subject sub)
 	{
 		subjects.add(sub);
-		sub.getTeachers().add(this);
+		//sub.getTeachers().add(this);
 		
 	}
 

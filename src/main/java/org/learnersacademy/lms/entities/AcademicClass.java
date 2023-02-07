@@ -63,8 +63,9 @@ public class AcademicClass {
 	}
 	public void addStudent(Student student)
 	{
-		students.add(student);
+		
 		student.setAcademicClass(this);
+		students.add(student);
 		//student.addAcademicClassToStudent(this);
 		
 	}

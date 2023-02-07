@@ -75,7 +75,14 @@ public class MapTeacherToSubjectsController extends HttpServlet {
 		Teacher teacher = service.getTeacher(tId);
 		Subject sub = serviceSub.getSubject(sId);
 		sub.addTeacher(teacher);
-		serviceSub.update(sub);
+		int success= serviceSub.update(sub);
+		if(success==-1)
+			response.getWriter().println("This subject is already assigned to the "+teacher.getFirstName());
+		else if(success==-2)
+			response.getWriter().println("Unexpected problem occured in assigning the subject.Check if this subject is already assigned the "+teacher.getFirstName());
+		else if(success==1)
+			response.getWriter().println("This subject is assigned successfully");
+		
 	}
 
 }

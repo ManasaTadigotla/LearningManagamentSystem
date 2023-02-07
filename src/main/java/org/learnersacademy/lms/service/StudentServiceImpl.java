@@ -39,8 +39,8 @@ public class StudentServiceImpl implements StudentService{
 	@Override
 	public Student findByStudentId(int studentId) {
 		StudentDao studentDao=new StudentDaoImpl();
-		studentDao.findByStudentId(studentId);
-		return null;
+		return studentDao.findByStudentId(studentId);
+		//return null;
 	}
 
 }
